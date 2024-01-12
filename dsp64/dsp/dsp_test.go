@@ -218,3 +218,13 @@ func TestRangeEnumeratesIntegersAsFloats(t *testing.T) {
 	check.Eq(t, Range(-2, 3), []float64{-2, -1, 0, 1, 2, 3})
 	check.Eq(t, Range(3, -2), []float64{3, 2, 1, 0, -1, -2})
 }
+
+func TestMulUsesTheLowestCommonElementCount(t *testing.T) {
+	check.Eq(t, Mul(), nil)
+	check.Eq(t, Mul(nil, nil), nil)
+	check.Eq(t, Mul([]float64{2, 3, 4}), []float64{2, 3, 4})
+	check.Eq(t, Mul([]float64{2, 3, 4}, []float64{5, 6, 7}), []float64{2*5, 3*6, 4*7})
+	check.Eq(t, Mul([]float64{2, 3}, []float64{4, 5, 6}), []float64{2*4, 3*5})
+	check.Eq(t, Mul([]float64{2, 3, 4}, []float64{5, 6}), []float64{2*5, 3*6})
+	check.Eq(t, Mul([]float64{2}, []float64{3}, []float64{4}), []float64{2*3*4})
+}

@@ -320,3 +320,26 @@ func Range(a, b int) []float64 {
 		return r
 	}
 }
+
+// Mul returns an array of the products of the elements in all arrays of a. If
+// the arrays in a have different lengths, the smallest of all lengths is used
+// for the result.
+func Mul(a ...[]float64) []float64 {
+	if len(a) == 0 {
+		return nil
+	}
+	n := len(a[0])
+	for _, v := range a {
+		if len(v) < n {
+			n = len(v)
+		}
+	}
+	product := make([]float64, n)
+	for i := range product {
+		product[i] = 1
+		for j := range a {
+			product[i] *= a[j][i]
+		}
+	}
+	return product
+}
