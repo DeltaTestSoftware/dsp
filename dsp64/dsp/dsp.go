@@ -303,8 +303,8 @@ func AbsValue(x float64) float64 {
 //
 // Examples:
 //
-// 	Range(5, 8)  =>  {5.0, 6.0, 7.0, 8.0}
-// 	Range(2, -3) =>  {2.0, 1.0, 0.0, -1.0, -2.0, -3.0}
+//	Range(5, 8)  =>  {5.0, 6.0, 7.0, 8.0}
+//	Range(2, -3) =>  {2.0, 1.0, 0.0, -1.0, -2.0, -3.0}
 func Range(a, b int) []float64 {
 	if a <= b {
 		r := make([]float64, b-a+1)

@@ -223,8 +223,8 @@ func TestMulUsesTheLowestCommonElementCount(t *testing.T) {
 	check.Eq(t, Mul(), nil)
 	check.Eq(t, Mul(nil, nil), nil)
 	check.Eq(t, Mul([]FLOAT{2, 3, 4}), []FLOAT{2, 3, 4})
-	check.Eq(t, Mul([]FLOAT{2, 3, 4}, []FLOAT{5, 6, 7}), []FLOAT{2*5, 3*6, 4*7})
-	check.Eq(t, Mul([]FLOAT{2, 3}, []FLOAT{4, 5, 6}), []FLOAT{2*4, 3*5})
-	check.Eq(t, Mul([]FLOAT{2, 3, 4}, []FLOAT{5, 6}), []FLOAT{2*5, 3*6})
-	check.Eq(t, Mul([]FLOAT{2}, []FLOAT{3}, []FLOAT{4}), []FLOAT{2*3*4})
+	check.Eq(t, Mul([]FLOAT{2, 3, 4}, []FLOAT{5, 6, 7}), []FLOAT{2 * 5, 3 * 6, 4 * 7})
+	check.Eq(t, Mul([]FLOAT{2, 3}, []FLOAT{4, 5, 6}), []FLOAT{2 * 4, 3 * 5})
+	check.Eq(t, Mul([]FLOAT{2, 3, 4}, []FLOAT{5, 6}), []FLOAT{2 * 5, 3 * 6})
+	check.Eq(t, Mul([]FLOAT{2}, []FLOAT{3}, []FLOAT{4}), []FLOAT{2 * 3 * 4})
 }
