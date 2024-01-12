@@ -1,4 +1,4 @@
-module github.com/gonutz/dsp
+module github.com/DeltaTestSoftware/dsp
 
 go 1.11
 
