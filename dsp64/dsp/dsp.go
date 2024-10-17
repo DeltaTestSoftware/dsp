@@ -437,6 +437,10 @@ func Resample(a []float64, newLen int) []float64 {
 		return []float64{(a[0] + a[len(a)-1]) / 2.0}
 	}
 
+	if len(a) == newLen {
+		return Copy(a)
+	}
+
 	indexScale := float64(len(a)-1) / float64(newLen-1)
 
 	b := make([]float64, newLen)
