@@ -413,3 +413,41 @@ func SafeDiv(a, b []float64, replacement float64) []float64 {
 	}
 	return div
 }
+
+// Resample returns a new array of length newLen and fills it with the
+// interpolated values of a.
+// For len(a) >= 2 and newLen >= 2, the first and last values will be the same
+// in both input and output.
+// If len(a) == 0 or newLen <= 0, nil is returned.
+// If len(a) == 1, the first value of a is repeated newLen times.
+// If newLen == 1, the first and last values are averaged for the output.
+//
+// Examples:
+//
+//	Resample([100, 200], 3) -> [100, 150, 200]
+//	Resample([100, 120, 140, 160, 180, 200], 3) -> [100, 150, 200]
+func Resample(a []float64, newLen int) []float64 {
+	if len(a) == 0 || newLen <= 0 {
+		return nil
+	}
+	if len(a) == 1 {
+		return Repeat(a[0], newLen)
+	}
+	if newLen == 1 {
+		return []float64{(a[0] + a[len(a)-1]) / 2.0}
+	}
+
+	indexScale := float64(len(a)-1) / float64(newLen-1)
+
+	b := make([]float64, newLen)
+	b[0] = a[0]
+	b[len(b)-1] = a[len(a)-1]
+	for i := 1; i < len(b)-1; i++ {
+		j := float64(i) * indexScale
+		low := int(j)
+		high := low + 1
+		fraction := j - float64(low)
+		b[i] = float64(fraction*float64(a[low]) + (1.0-fraction)*float64(a[high]))
+	}
+	return b
+}

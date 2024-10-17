@@ -260,3 +260,12 @@ func TestSafeDiv(t *testing.T) {
 	check.Eq(t, SafeDiv([]FLOAT{1, 2, 3}, []FLOAT{-3, -2, -1}, 0), []FLOAT{-1.0 / 3.0, -2.0 / 2.0, -3.0 / 1.0})
 	check.Eq(t, SafeDiv([]FLOAT{1}, []FLOAT{0}, 123), []FLOAT{123})
 }
+
+func TestResample(t *testing.T) {
+	check.Eq(t, Resample(nil, 3), nil)
+	check.Eq(t, Resample([]FLOAT{1}, 0), nil)
+	check.Eq(t, Resample([]FLOAT{1}, 3), []FLOAT{1, 1, 1})
+	check.Eq(t, Resample([]FLOAT{1, 2}, 1), []FLOAT{1.5})
+	check.Eq(t, Resample([]FLOAT{100, 200}, 3), []FLOAT{100, 150, 200})
+	check.Eq(t, Resample([]FLOAT{100, 120, 140, 160, 180, 200}, 3), []FLOAT{100, 150, 200})
+}
