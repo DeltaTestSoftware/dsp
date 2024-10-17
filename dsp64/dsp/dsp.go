@@ -277,6 +277,32 @@ func Scale(a []float64, factor float64) []float64 {
 	return b
 }
 
+// Reciprocal returns a new array of the reciprocal of the values in a, i.e.
+// [1.0 / a[0], 1.0 / a[1], ...]. Note that elements of a might be 0. If you
+// want to handle these cases specially, use SaveReciprocal instead.
+func Reciprocal(a []float64) []float64 {
+	b := make([]float64, len(a))
+	for i := range b {
+		b[i] = 1.0 / a[i]
+	}
+	return b
+}
+
+// SafeReciprocal returns a new array of the reciprocal of the values in a,
+// i.e. [1.0 / a[0], 1.0 / a[1], ...]. If an element of a is zero, the
+// corresponding element in the output will be set to replacement.
+func SafeReciprocal(a []float64, replacement float64) []float64 {
+	b := make([]float64, len(a))
+	for i := range b {
+		if a[i] == 0 {
+			b[i] = replacement
+		} else {
+			b[i] = 1.0 / a[i]
+		}
+	}
+	return b
+}
+
 // Abs returns a new array, the same length as x, with all values the absolute
 // values of x, i.e. the value itself if it is >= 0 and the negative value if it
 // is < 0.

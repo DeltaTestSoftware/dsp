@@ -228,3 +228,18 @@ func TestMulUsesTheLowestCommonElementCount(t *testing.T) {
 	check.Eq(t, Mul([]FLOAT{2, 3, 4}, []FLOAT{5, 6}), []FLOAT{2 * 5, 3 * 6})
 	check.Eq(t, Mul([]FLOAT{2}, []FLOAT{3}, []FLOAT{4}), []FLOAT{2 * 3 * 4})
 }
+
+func TestReciprocal(t *testing.T) {
+	check.Eq(t, Reciprocal(nil), nil)
+	check.Eq(t, Reciprocal([]FLOAT{999}), []FLOAT{1.0 / 999})
+	check.Eq(t, Reciprocal([]FLOAT{1, 2, 3}), []FLOAT{1.0 / 1, 1.0 / 2, 1.0 / 3})
+	var zero FLOAT
+	check.Eq(t, Reciprocal([]FLOAT{0}), []FLOAT{1.0 / zero})
+}
+
+func TestSafeReciprocal(t *testing.T) {
+	check.Eq(t, SafeReciprocal(nil, 0), nil)
+	check.Eq(t, SafeReciprocal([]FLOAT{999}, 0), []FLOAT{1.0 / 999})
+	check.Eq(t, SafeReciprocal([]FLOAT{1, 2, 3}, 0), []FLOAT{1.0 / 1, 1.0 / 2, 1.0 / 3})
+	check.Eq(t, SafeReciprocal([]FLOAT{0}, 123), []FLOAT{123})
+}
