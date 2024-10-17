@@ -221,6 +221,8 @@ func TestRangeEnumeratesIntegersAsFloats(t *testing.T) {
 
 func TestMulUsesTheLowestCommonElementCount(t *testing.T) {
 	check.Eq(t, Mul(), nil)
+	check.Eq(t, Mul(nil), nil)
+	check.Eq(t, Mul([]FLOAT{}, nil, []FLOAT{1, 2, 3}), nil)
 	check.Eq(t, Mul(nil, nil), nil)
 	check.Eq(t, Mul([]FLOAT{2, 3, 4}), []FLOAT{2, 3, 4})
 	check.Eq(t, Mul([]FLOAT{2, 3, 4}, []FLOAT{5, 6, 7}), []FLOAT{2 * 5, 3 * 6, 4 * 7})
@@ -242,4 +244,19 @@ func TestSafeReciprocal(t *testing.T) {
 	check.Eq(t, SafeReciprocal([]FLOAT{999}, 0), []FLOAT{1.0 / 999})
 	check.Eq(t, SafeReciprocal([]FLOAT{1, 2, 3}, 0), []FLOAT{1.0 / 1, 1.0 / 2, 1.0 / 3})
 	check.Eq(t, SafeReciprocal([]FLOAT{0}, 123), []FLOAT{123})
+}
+
+func TestDiv(t *testing.T) {
+	check.Eq(t, Div(nil, nil), nil)
+	check.Eq(t, Div([]FLOAT{1}, []FLOAT{2}), []FLOAT{1.0 / 2.0})
+	check.Eq(t, Div([]FLOAT{1, 2, 3}, []FLOAT{-3, -2, -1}), []FLOAT{-1.0 / 3.0, -2.0 / 2.0, -3.0 / 1.0})
+	var zero FLOAT
+	check.Eq(t, Div([]FLOAT{1}, []FLOAT{0}), []FLOAT{1 / zero})
+}
+
+func TestSafeDiv(t *testing.T) {
+	check.Eq(t, SafeDiv(nil, nil, 0), nil)
+	check.Eq(t, SafeDiv([]FLOAT{1}, []FLOAT{2}, 0), []FLOAT{1.0 / 2.0})
+	check.Eq(t, SafeDiv([]FLOAT{1, 2, 3}, []FLOAT{-3, -2, -1}, 0), []FLOAT{-1.0 / 3.0, -2.0 / 2.0, -3.0 / 1.0})
+	check.Eq(t, SafeDiv([]FLOAT{1}, []FLOAT{0}, 123), []FLOAT{123})
 }

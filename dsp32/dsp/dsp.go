@@ -369,3 +369,47 @@ func Mul(a ...[]float32) []float32 {
 	}
 	return product
 }
+
+// Div returns a new array with all elements in a divided by elements in b,
+// i.e. [a[0] / b[0], a[1] / b[1], ...]. Elements in b can be zero. If you want
+// those treated spacially, call SafeDiv.
+func Div(a, b []float32) []float32 {
+	n := len(a)
+	if len(b) < n {
+		n = len(b)
+	}
+
+	if n == 0 {
+		return nil
+	}
+
+	div := make([]float32, n)
+	for i := range div {
+		div[i] = a[i] / b[i]
+	}
+	return div
+}
+
+// SafeDiv returns a new array with all elements in a divided by elements in b,
+// i.e. [a[0] / b[0], a[1] / b[1], ...]. If an element in b is zero, its
+// corresponding element in the output is set to replacement.
+func SafeDiv(a, b []float32, replacement float32) []float32 {
+	n := len(a)
+	if len(b) < n {
+		n = len(b)
+	}
+
+	if n == 0 {
+		return nil
+	}
+
+	div := make([]float32, n)
+	for i := range div {
+		if b[i] == 0 {
+			div[i] = replacement
+		} else {
+			div[i] = a[i] / b[i]
+		}
+	}
+	return div
+}
